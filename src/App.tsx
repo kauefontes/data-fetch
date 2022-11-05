@@ -1,4 +1,6 @@
-import { useFetch } from './hooks/useFetch'
+import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
+
 
 type Repository = {
   id: string
@@ -7,12 +9,17 @@ type Repository = {
 }
 
 function App() {
-  const { data: repositories, loading } =  useFetch<Repository[]>('users/kauefontes/repos')
+  const { data, isFetching } = useQuery<Repository[]>(['repository'], async () => {
+    const response = await axios.get('https://api.github.com/users/kauefontes/repos')
+
+    return response.data
+
+  })
   return (
     <ul>
-      {loading && <p>Loading...</p>}
+      {isFetching && <p>Loading...</p>}
       {
-        repositories?.map(repository => {
+        data?.map(repository => {
           return (
             <li key={repository.id}>
               <strong>{repository.name}</strong>
