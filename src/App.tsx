@@ -15,7 +15,7 @@ function App() {
     return response.data
 
   }, {
-    refetchOnWindowFocus: false
+    
   })
 
 
