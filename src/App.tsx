@@ -14,7 +14,11 @@ function App() {
 
     return response.data
 
+  }, {
+    refetchOnWindowFocus: false
   })
+
+
   return (
     <ul>
       {isFetching && <p>Loading...</p>}
